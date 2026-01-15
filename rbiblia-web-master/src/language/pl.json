@@ -6,7 +6,17 @@
     "error_wrong_ip_address": "Nie można uzyskać informacji o aktualnym adresie IP",
     "error_database_connection_failed": "Błąd łączenia z bazą danych",
     "error_json_is_malformed": "Przesłany ciąg w formacie JSON jest pusty lub zawiera błędy",
-    "error_json_parameter_is_missing": "Parametr `%s` nie został znaleziony lub jest nieprawidłowy"
+    "error_json_parameter_is_missing": "Parametr `%s` nie został znaleziony lub jest nieprawidłowy",
+    "oldTestament": "Stary Testament",
+    "newTestament": "Nowy Testament",
+    "selectBook": "Wybierz księgę",
+    "selectChapter": "Wybierz rozdział",
+    "backToBooks": "Wróć do ksiąg",
+    "compareVerse": "Porównaj werset",
+    "selectTranslationToCompare": "Wybierz tłumaczenie do porównania",
+    "chooseTranslation": "Wybierz tłumaczenie",
+    "verseNotFoundInTranslation": "Werset nie został znaleziony w tym tłumaczeniu",
+    "loading": "Ładowanie"
   },
   "aliases": {
     "gen": {

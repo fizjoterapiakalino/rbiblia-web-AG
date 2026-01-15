@@ -6,7 +6,12 @@
     "error_wrong_ip_address": "Cannot determine IP address of the user",
     "error_database_connection_failed": "Database connection failed",
     "error_json_is_malformed": "Submitted JSON string is empty or is malformed",
-    "error_json_parameter_is_missing": "Parameter `%s` was not found or is invalid"
+    "error_json_parameter_is_missing": "Parameter `%s` was not found or is invalid",
+    "oldTestament": "Old Testament",
+    "newTestament": "New Testament",
+    "selectBook": "Select book",
+    "selectChapter": "Select chapter",
+    "backToBooks": "Back to books"
   },
   "aliases": {
     "gen": {

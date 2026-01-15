@@ -5,8 +5,13 @@
     "error_query_limit_exceeded": "Das Nutzungslimit für die aktuelle IP-Adresse ist erschöpft, versuchen Sie es morgen erneut",
     "error_wrong_ip_address": "Es konnten keine Informationen über die aktuelle IP-Adresse abgerufen werden",
     "error_database_connection_failed": "Fehler bei der Datenbankverbindung",
-    "error_json_is_malformed": "Der hochgeladene String im JSON-Format ist leer oder enthält Fehler",
-    "error_json_parameter_is_missing": "Der Parameter `%s` wurde nicht gefunden oder ist ungültig"
+    "error_json_is_malformed": "Die übermittelte JSON-Zeichenfolge ist leer oder fehlerhaft",
+    "error_json_parameter_is_missing": "Parameter `%s` wurde nie gefunden oder ist ungültig",
+    "oldTestament": "Altes Testament",
+    "newTestament": "Neues Testament",
+    "selectBook": "Buch auswählen",
+    "selectChapter": "Kapitel auswählen",
+    "backToBooks": "Zurück zu den Büchern"
   },
   "aliases": {
     "gen": {
