@@ -1,21 +1,12 @@
 # rBiblia Web - Docker Compose Configuration
-#
-# Użycie:
-#   Development:  docker-compose up -d
-#   Production:   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-#
-# Domyślnie uruchamia się tryb development z hot-reload
-
 services:
     web:
         build:
             context: .
-            target: development # Używamy etapu development z Dockerfile
+            target: development
         container_name: rbiblia-web
         volumes:
-            # Mount kodu źródłowego dla hot-reload
             - .:/var/www/html
-            # Anonimowe volumy dla node_modules i vendor (cache w kontenerze)
             - /var/www/html/node_modules
             - /var/www/html/src/vendor
         ports:
@@ -23,24 +14,34 @@ services:
         environment:
             - APP_ENV=development
             - PHP_DISPLAY_ERRORS=1
+        depends_on:
+            - db
         restart: unless-stopped
-        healthcheck:
-            test: [ "CMD", "curl", "-f", "http://localhost/" ]
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 10s
 
-    # Opcjonalnie: Serwis do budowania assets z watch mode
-    assets:
-        build:
-            context: .
-            target: development
-        container_name: rbiblia-assets
+    db:
+        image: mariadb:10.6
+        container_name: rbiblia-db
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: rbiblia
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
         volumes:
-            - .:/var/www/html
-            - /var/www/html/node_modules
-        working_dir: /var/www/html
-        command: sh -c "yarn install && yarn encore dev --watch"
-        profiles:
-            - dev-watch # Uruchamiany tylko z: docker-compose --profile dev-watch up
+            - rbiblia_db_data:/var/lib/mysql
+            # Automatyczny import struktury przy pierwszym starcie
+            - ./docs/db_structure.sql:/docker-entrypoint-initdb.d/db_structure.sql
+        ports:
+            - "3306:3306"
+
+    # Opcjonalnie: Adminer do podglądu bazy
+    adminer:
+        image: adminer
+        container_name: rbiblia-adminer
+        ports:
+            - "8081:8080"
+        restart: unless-stopped
+
+volumes:
+    rbiblia_db_data:

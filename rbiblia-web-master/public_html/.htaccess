@@ -5,20 +5,20 @@
     AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript application/json
 </ifModule>
 
-Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+# Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
 
 AddDefaultCharset utf-8
 
 RewriteEngine On
 
-# always redirect to SSL version
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} !=localhost
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# always redirect to SSL version - DISABLED FOR LOCAL DEV
+# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTP_HOST} !=localhost
+# RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# cut www. prefix
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+# cut www. prefix - DISABLED FOR LOCAL DEV
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
 # handle favicon requests more graceful
 RewriteRule ^favicon\.png$ /assets/favicon.png [L]
