@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.24.5",
+    "@fontsource/crimson-pro": "^5.2.8",
+    "@fontsource/syne": "^5.2.7",
     "clsx": "^2.1.0"
   }
 }
