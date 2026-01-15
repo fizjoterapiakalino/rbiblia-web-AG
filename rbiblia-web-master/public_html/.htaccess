@@ -1,0 +1,35 @@
+<ifModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/xml text/css text/plain
+    AddOutputFilterByType DEFLATE image/svg+xml application/xhtml+xml application/xml
+    AddOutputFilterByType DEFLATE application/rdf+xml application/rss+xml application/atom+xml
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript application/json
+</ifModule>
+
+Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+AddDefaultCharset utf-8
+
+RewriteEngine On
+
+# always redirect to SSL version
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !=localhost
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# cut www. prefix
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+
+# handle favicon requests more graceful
+RewriteRule ^favicon\.png$ /assets/favicon.png [L]
+RewriteRule ^favicon\.ico$ /assets/favicon.png [L]
+
+# remove legacy /b prefix from the path (can be removed at some point later)
+RewriteRule ^b/([a-z]{2})/([a-z0-9_]+)/([a-z0-9]+)/(\d+) /$1/$2/$3/$4 [R=301,QSA,L]
+RewriteRule ^b/([a-z0-9_]+)/([a-z0-9]+)/(\d+) /pl/$1/$2/$3 [R=301,QSA,L]
+RewriteRule ^([a-z0-9_]+)/pl_pubg/([a-z0-9]+)/(\d+) /$1/pl_ubg/$2/$3 [R=301,QSA,L]
+
+RewriteRule ^$ index.php [QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

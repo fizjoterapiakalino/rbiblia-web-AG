@@ -1,0 +1,34 @@
+# Node
+node_modules
+npm-debug.log
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Docs
+docs
+README.md
+LICENSE
+
+# Tests
+tests
+phpunit.xml
+phpstan.neon
+
+# CI/CD
+.github
+sonar-project.properties
+
+# Build artifacts (będą tworzone w kontenerze)
+public_html/build
+
+# Cache
+.php-cs-fixer.cache

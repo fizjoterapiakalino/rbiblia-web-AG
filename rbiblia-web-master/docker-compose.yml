@@ -1,0 +1,46 @@
+# rBiblia Web - Docker Compose Configuration
+#
+# Użycie:
+#   Development:  docker-compose up -d
+#   Production:   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Domyślnie uruchamia się tryb development z hot-reload
+
+services:
+    web:
+        build:
+            context: .
+            target: development # Używamy etapu development z Dockerfile
+        container_name: rbiblia-web
+        volumes:
+            # Mount kodu źródłowego dla hot-reload
+            - .:/var/www/html
+            # Anonimowe volumy dla node_modules i vendor (cache w kontenerze)
+            - /var/www/html/node_modules
+            - /var/www/html/src/vendor
+        ports:
+            - "8080:80"
+        environment:
+            - APP_ENV=development
+            - PHP_DISPLAY_ERRORS=1
+        restart: unless-stopped
+        healthcheck:
+            test: [ "CMD", "curl", "-f", "http://localhost/" ]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+
+    # Opcjonalnie: Serwis do budowania assets z watch mode
+    assets:
+        build:
+            context: .
+            target: development
+        container_name: rbiblia-assets
+        volumes:
+            - .:/var/www/html
+            - /var/www/html/node_modules
+        working_dir: /var/www/html
+        command: sh -c "yarn install && yarn encore dev --watch"
+        profiles:
+            - dev-watch # Uruchamiany tylko z: docker-compose --profile dev-watch up
